@@ -87,7 +87,7 @@ def simple_route_weigher(city, street_attribute):
     """
 
     for (x, y) in city.edges():
-        g[x][y]['weight']= g[x][y][street_attribute]
+        city[x][y]['weight']= city[x][y][street_attribute]
 
 def simple_uniform_route_weigher(city, street_attributes):
     """
@@ -101,7 +101,7 @@ def simple_uniform_route_weigher(city, street_attributes):
 
     for(x, y) in city.edges():
         for attribute in street_attributes:
-            g[x][y]['weight'] += g[x][y][attribute]/len(street_attributes)
+            city[x][y]['weight'] += city[x][y][attribute]/len(street_attributes)
 
 def route_weigher(city, street_attributes, street_attribute_weights):
     """
@@ -115,8 +115,9 @@ def route_weigher(city, street_attributes, street_attribute_weights):
     """
 
     for (x, y) in city.edges():
+        city[x][y]['weight'] = 0
         for i in range(len(street_attributes)):
-            g[x][y]['weight'] += street_attribute_weights[i]*street_attributes[i]
+            city[x][y]['weight'] += float(street_attribute_weights[i])*float(city[x][y][street_attributes[i]])
 
 
 def minimizing_search(graph, node_1, node_2, street_attribute):
